@@ -86,4 +86,22 @@ router.post("/:username/follow", (req, res) => {
   });
 });
 
+router.post("/:postid/delete", (req, res, next) => {
+  User.findOne({ username: req.user.username }).exec((err, follow) => {
+    if (err) {
+      res.redirect("/" + req.user.username);
+      return;
+    }
+
+    const id = req.params.postid;
+
+    Hush.findByIdAndRemove(id, (err, post) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/" + req.user.username);
+    });
+  });
+});
+
 module.exports = router;
