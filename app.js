@@ -131,8 +131,15 @@ app.use(passport.session());
 
 const index = require("./routes/index");
 app.use("/", index);
+
 const authRoutes = require("./routes/authentication.js");
 app.use("/", authRoutes);
+
+const hushRoutes = require("./routes/hush.js");
+app.use("/hushes", hushRoutes);
+
+const profileRoutes = require("./routes/profile.js");
+app.use("/profile", profileRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

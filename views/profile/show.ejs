@@ -1,0 +1,22 @@
+<h2>@<%= username %></h2>
+
+<% if (hushes.length > 0) { %>
+  <% hushes.forEach(function(hush) { %>
+    <div>
+      <a href="<%= hush.hush %>">
+        <%= hush.hush %>
+      </a>
+      <p>
+        <span>
+          <a href="/profile/<%= hush.a %>">
+            @<%= hush.username %>
+          </a>
+        </span>
+        <br>
+        <%= moment(hush.created_at).format('LL, LTS') %>
+      </p>
+    </div>
+  <% }) %>
+<% } else { %>
+  <p><%= username %> hasn't hushed yet.</p>
+<% } %>

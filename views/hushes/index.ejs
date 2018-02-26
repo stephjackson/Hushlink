@@ -1,0 +1,33 @@
+<div id="container">
+  <h2>@
+    <%= username %>
+  </h2>
+
+  <% hushes.forEach(function(hush) { %>
+    <div>
+      <a href="<%= hush.hush %>">
+        <%= hush.hush %>
+      </a>
+      <p>
+        <span>
+          <a href="/profile/<%= hush.username %>">
+            @<%= hush.username %>
+          </a>
+        </span>
+        <br>
+        <%= moment(hush.created_at).format('LL, LTS') %>
+      </p>
+    </div>
+  <% }) %>
+  <form action="/hushes" method="POST" id="new-hush">
+    <input type="url" name="hushUrl" placeholder="What should we see?">
+    <button>Hush!</button>
+  </form>
+
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div>
+      <%= errorMessage %>
+    </div>
+  <% } %>
+
+</div>
