@@ -15,11 +15,7 @@ hushRoutes.use((req, res, next) => {
 hushRoutes.get("/", (req, res, next) => {
   User.findOne({ username: req.user.username }, "_id username").exec(
     (err, user) => {
-      if (!user) {
-        return;
-      }
-
-      Hush.find({ username: user.username })
+      Hush.find({ user_id: { $in: req.user.following } })
         .sort({ created_at: -1 })
         .exec((err, hushes) => {
           console.log(hushes);
