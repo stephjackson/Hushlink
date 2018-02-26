@@ -12,15 +12,12 @@ profileRoutes.get("/:username", (req, res, next) => {
       return next(err);
     }
 
-    if (req.user) {
-      isFollowing = req.user.following.indexOf(user._id.toString()) > -1;
-    }
-
     Hush.find({ username: user.username })
       .sort({ created_at: -1 })
       .exec((err, hushes) => {
         res.render("profile/show", {
-          username: user.username,
+          username: username,
+          profileName: user.username,
           hushes,
           moment,
           session: req.user,

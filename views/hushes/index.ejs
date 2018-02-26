@@ -9,9 +9,14 @@
       </a>
       <p>
         <span>
-          <a href="/profile/<%= hush.username %>">
+          <a href="/<%= hush.username %>">
             @<%= hush.username %>
           </a>
+          <% if (session !== undefined) { %>
+            <form action="/<%= hush.username %>/follow" method="POST">
+              <button><%= buttonText %></button>
+            </form>
+          <% } %>
         </span>
         <br>
         <%= moment(hush.created_at).format('LL, LTS') %>

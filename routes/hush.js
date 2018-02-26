@@ -12,23 +12,6 @@ hushRoutes.use((req, res, next) => {
   }
 });
 
-hushRoutes.get("/", (req, res, next) => {
-  User.findOne({ username: req.user.username }, "_id username").exec(
-    (err, user) => {
-      Hush.find({ user_id: { $in: req.user.following } })
-        .sort({ created_at: -1 })
-        .exec((err, hushes) => {
-          console.log(hushes);
-          res.render("hushes/index", {
-            username: user.username,
-            hushes,
-            moment
-          });
-        });
-    }
-  );
-});
-
 hushRoutes.post("/", (req, res, next) => {
   const user = req.user;
 
@@ -50,7 +33,7 @@ hushRoutes.post("/", (req, res, next) => {
           errorMessage: err.errors.hush.hushUrl
         });
       } else {
-        res.redirect("/hushes");
+        res.redirect("/");
       }
     });
   });

@@ -4,7 +4,7 @@ const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 const router = express.Router();
 
 router.get("/login", ensureLoggedOut(), (req, res) => {
-  res.render("authentication/login");
+  res.render("authentication/login", { username: undefined });
 });
 
 router.post(
@@ -17,7 +17,7 @@ router.post(
 );
 
 router.get("/signup", ensureLoggedOut(), (req, res) => {
-  res.render("authentication/signup");
+  res.render("authentication/signup", { username: undefined });
 });
 
 router.post(

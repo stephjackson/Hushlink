@@ -11,13 +11,15 @@
 </head>
 
 <body>
+  <% if (username == undefined) { %>
   <a href="/login">Log In</a>
   <a href="/signup">Sign Up</a>
-  
+  <% } else { %>
   <a href="/profile">Profile</a>
   <form action="/logout" method="post">
     <button type="submit">Logout</button>
   </form>
+  <% } %>
   <%- body -%>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"></script>

@@ -1,7 +1,7 @@
-<h2>@<%= username %></h2>
+<h2>@<%= profileName %></h2>
 
-<% if (session !== undefined && username !== session.username) { %>
-  <form action="/profile/<%= username %>/follow" method="POST">
+<% if (session !== undefined && profileName !== session.username) { %>
+  <form action="/<%= profileName %>/follow" method="POST">
     <button><%= buttonText %></button>
   </form>
 <% } %>
@@ -13,16 +13,10 @@
         <%= hush.hush %>
       </a>
       <p>
-        <span>
-          <a href="/profile/<%= hush.a %>">
-            @<%= hush.username %>
-          </a>
-        </span>
-        <br>
         <%= moment(hush.created_at).format('LL, LTS') %>
       </p>
     </div>
   <% }) %>
 <% } else { %>
-  <p><%= username %> hasn't hushed yet.</p>
+  <p><%= profileName %> hasn't hushed yet.</p>
 <% } %>
