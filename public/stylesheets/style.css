@@ -9,7 +9,7 @@ html, body {
 }
 
 .navbar-pink {
-  background-color: #DEDBDB;
+  background-color: #edecec;
 }
 
 .link-unstyled {
@@ -24,4 +24,38 @@ html, body {
 
 .link-unstyled:focus {
   outline: none;
+}
+
+.inner {
+  padding-top: 35vh;
+}
+
+#landing-section {
+  background: url('../images/landing.jpg') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100%;
+  color: white;
+}
+
+.dark-overlay {
+  background-color: rgba(15,0,0,0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.card-form {
+  opacity: 0.75;
+}
+
+.hushlink-link {
+  color: #d34747;
+}
+
+.btn-hushlink {
+  background-color: #d34747;
+  color: white;
 }

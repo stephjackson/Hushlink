@@ -1,18 +1,34 @@
-<div class="row h-100 align-items-center justify-content-center">
-  <div class="col-8">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<section id="landing-section">
+  <div class="dark-overlay">
+    <div class="inner">
+      <div class="container">
+        <div class="row landing-row d-flex">
+          <div class="col-lg-6">
+            <h1>Do you hate social media? We do too.</h1>
+            <p>The problem is that giving up social media means feeling disconnected from the world, which is why we created Hushlink.
+              Hushlink is a social media service where personal input is not allowed - the only thing you're allowed to post is links
+              to what you're reading, listening to, watching, or playing. Now you can hear about that cool blog post or stay current on music
+              without your aunt trying to sell you essential oils or some creep sliding into your DMs. Interested? Sign up today.
+            </p>
+          </div>
+          <div class="col-lg-6 align-self-center">
+            <div class="card text-center card-form">
+              <div class="card-body">
+                <form action="/signup" method="POST">
+                  <div class="form-group">
+                    <input class="form-control" type="text" name="username" placeholder="Username" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text" name="password" placeholder="Password" name="password">
+                  </div>
+                  <button class="btn btn-outline-dark btn-block" type="submit">Sign Up</button>
+                </form>
+                <p class="card-text pt-3"><small class="text-muted">Already a member? <a class="hushlink-link" href="/login">Log In.</a></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-4">Hello</div>
-</div>
-
+</section>
