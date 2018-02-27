@@ -80,7 +80,7 @@ router.post("/:username/follow", (req, res) => {
 
       currentUser.save(err => {
         req.session.user = currentUser;
-        res.redirect("/");
+        res.redirect("/" + req.params.username);
       });
     });
   });

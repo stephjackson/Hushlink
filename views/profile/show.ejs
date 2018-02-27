@@ -1,27 +1,29 @@
-<h2>@<%= profileName %></h2>
+<div class="inner">
+    <h2>@<%= profileName %></h2>
 
-<% if (session !== undefined && profileName !== session.username) { %>
-  <form action="/<%= profileName %>/follow" method="POST">
-    <button><%= buttonText %></button>
-  </form>
-<% } %>
-
-<% if (hushes.length > 0) { %>
-  <% hushes.forEach(function(hush) { %>
-    <div>
-      <a href="<%= hush.hush %>">
-        <%= hush.hush %>
-      </a>
-      <p>
-        <%= moment(hush.created_at).format('LL, LTS') %>
-      </p>
-      <% if (profileName === session.username) { %>
-        <form action="/<%= hush._id %>/delete" method="POST">
-          <button type="submit">Delete Post</button>
-        </form>
-      <% } %>
-    </div>
-  <% }) %>
-<% } else { %>
-  <p><%= profileName %> hasn't hushed yet.</p>
-<% } %>
+    <% if (session !== undefined && profileName !== session.username) { %>
+      <form action="/<%= profileName %>/follow" method="POST">
+        <button><%= buttonText %></button>
+      </form>
+    <% } %>
+    
+    <% if (hushes.length > 0) { %>
+      <% hushes.forEach(function(hush) { %>
+        <div>
+          <a href="<%= hush.hush %>">
+            <%= hush.hush %>
+          </a>
+          <p>
+            <%= moment(hush.created_at).format('LL, LTS') %>
+          </p>
+          <% if (profileName === session.username) { %>
+            <form action="/<%= hush._id %>/delete" method="POST">
+              <button type="submit">Delete Post</button>
+            </form>
+          <% } %>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p><%= profileName %> hasn't hushed yet.</p>
+    <% } %>
+</div>

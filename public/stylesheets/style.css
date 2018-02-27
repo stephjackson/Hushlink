@@ -34,6 +34,12 @@ html, body {
   padding-top: 27.5vh;
 }
 
+.inner-feed {
+  padding-top: 15vh;
+  font-family: 'Raleway', sans-serif;
+  padding-bottom: 7vh;
+}
+
 #landing-section {
   background: url('../images/landing.jpg') no-repeat;
   background-size: cover;
@@ -62,4 +68,55 @@ html, body {
 .btn-hushlink {
   background-color: #d34747;
   color: white;
+}
+
+.sidebar {
+  min-height: 100vh;
+  background-color: #d34747
+}
+
+.icon-background {
+  background-color: gray;
+}
+
+.fa-user-circle {
+  color: #d34747;
+}
+
+.profile-card {
+  background-color:  #d34747;
+  color: white;
+  border: solid 1px white;
+}
+
+.profile-card a {
+  color: white;
+}
+
+.form-container {
+  background: rgba(15,0,0,0.7);
+  color: white;
+  min-height: 100%;
+}
+
+.form-container a {
+  color: #ffaaaa;
+}
+
+.hush-footer {
+  background: rgb(65,50,50);
+}
+
+@media (max-width: 768px) { 
+  #hush-link a {
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
+  }
+  #hush-link a:before,
+  #hush-link a:after {
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
+  }
 }

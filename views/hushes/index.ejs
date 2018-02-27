@@ -1,37 +1,93 @@
-<div id="container">
-  <h2>@<%= username %>'s feed
-  </h2>
-
-  <% hushes.forEach(function(hush) { %>
-    <div>
-      <a href="<%= hush.hush %>">
-        <%= hush.hush %>
-      </a>
-      <p>
-        <span>
-          <a href="/<%= hush.username %>">
-            @<%= hush.username %>
-          </a>
-          <% if (session !== undefined) { %>
-            <form action="/<%= hush.username %>/follow" method="POST">
-              <button><%= buttonText %></button>
-            </form>
-          <% } %>
-        </span>
-        <br>
-        <%= moment(hush.created_at).format('LL, LTS') %>
-      </p>
+   <div class="row no-gutters">
+      <div class="col-lg-2 sidebar d-none d-lg-block">
+        <div class="inner-feed">
+          <div class="row d-flex justify-content-center">
+            <div class="profile-card card col-8 pt-2">
+              <i class="card-image-top fas fa-fw fa-5x mr-4 mt-2 text-center"></i>
+              <p class="pt-2 card-title"><a href="/<%= username %>">Hello @<%= username %>!</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="inner-feed">
+          <ul class="list-unstyled">
+            <% hushes.forEach(function(hush, i) { %>
+            <li class="px-4 media individual-post">
+              <i class="fas fa-fw fa-5x mr-4 mt-2"></i>
+                  <div class="media-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <a class="hushlink-link d-block h5" href="/<%= hush.username %>">@<%= hush.username %></a>
+                        <form class="mt-4 d-none d-lg-block h5" action="/<%= hush.username %>/follow" method="POST">
+                          <% if (session !== undefined) { %>
+                            <button type="submit"  class="btn btn-hushlink"><%= buttonText %></button>
+                          <% } %>
+                        </form>
+                        <div class="d-lg-none">
+                          <a class="hushlink-link" href="<%= hush.hush %>"><%= hush.hush %></a>
+                          <p class="mt-2"><%= moment(hush.created_at).fromNow() %> </p>
+                        </div>
+                        </div>
+                        <div class="col-6 d-none d-lg-block ml-auto">
+                          <a id="hush-link" class="hushlink-link" href="<%= hush.hush %>"><%= hush.hush %></a>
+                          <p class="mt-4 pt-1"><%= moment(hush.created_at).fromNow() %> </p>
+                        </div>
+                      </div>
+                    </div>
+            </li>
+            <hr>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 d-none d-lg-block sidebar">
+          <div class="inner-feed">
+              <div class="row d-flex justify-content-center">
+                  <div class="profile-card card col-8 pt-3">
+                    <div class="form-row">
+                      <div class="col-12">
+                        <input type="text" class="form-control">
+                      </div>
+                      <button class="btn btn-outline-light btn-sm mx-1 my-3">Find Users</button>
+                    </div>
+                  </div>
+                </div>
+          </div>
+        </div>
     </div>
-  <% }) %>
+    
+<footer class="fixed-bottom hush-footer p-3">
   <form action="/hushes" method="POST" id="new-hush">
-    <input type="url" name="hushUrl" placeholder="What should we see?">
-    <button>Hush!</button>
+      <div class="form-row">
+        <div class="col-lg col-9">
+          <input class="form-control" type="url" name="hushUrl" placeholder="What should we see?">
+        </div>
+        <div class="col">
+          <button class="btn btn-hushlink">Hush!</button>
+        </div>
+      </div>
   </form>
+</footer>
+  
+    <% if (typeof(errorMessage) != "undefined") { %>
+      <div>
+        <%= errorMessage %>
+      </div>
+    <% } %>
 
-  <% if (typeof(errorMessage) != "undefined") { %>
-    <div>
-      <%= errorMessage %>
-    </div>
-  <% } %>
+    <script>
+      var fa = ['fa-adjust', 'fa-arrow-up', 'fa-beer', 'fa-birthday-cake', 'fa-bullseye', 'fa-bus', 'fa-chess', 'fa-chess-king']
+      function randomIcon() {
+        return fa[parseInt(Math.random() * fa.length)];
+      }
 
-</div>
+      function changeIcon() {
+        let icons = document.querySelectorAll('.fas');
+        for (var i = 1; i < icons.length; i++) {
+          icons[i].classList.add(randomIcon());
+        }
+      }
+      
+      changeIcon();
+    </script>
