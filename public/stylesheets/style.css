@@ -30,6 +30,10 @@ html, body {
   padding-top: 35vh;
 }
 
+.inner-form {
+  padding-top: 27.5vh;
+}
+
 #landing-section {
   background: url('../images/landing.jpg') no-repeat;
   background-size: cover;
@@ -48,7 +52,7 @@ html, body {
 }
 
 .card-form {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .hushlink-link {

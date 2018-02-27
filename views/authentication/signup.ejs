@@ -1,9 +1,21 @@
-<form action="/signup" method="POST">
-  <label for="username">Username</label>
-  <input type="text" name="username" required>
-
-  <label for="password">Password</label>
-  <input type="text" name="password">
-
-  <button type="submit">Sign Up</button>
-</form>
+<div class="inner-form">
+    <div class="row">
+      <div class="col-lg-6 col-10 m-auto">
+        <h1>Get ready for a nicer, quieter world.</h1>
+        <form action="/signup" method="POST">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" name="username">
+          </div>
+        
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password">
+          </div>
+        
+          <button class="btn btn-hushlink btn-block mt-4" type="submit">Log In</button>
+        </form>
+        <p class="mt-2"><small class="text-muted">Already a member? <a class="hushlink-link" href="/signup">Log in.</a></small></p>
+      </div>
+    </div>
+  </div>
