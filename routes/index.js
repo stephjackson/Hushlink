@@ -16,13 +16,18 @@ router.get("/", function(req, res, next) {
         Hush.find({ user_id: { $in: req.user.following } })
           .sort({ created_at: -1 })
           .exec((err, hushes) => {
-            res.render("hushes/index", {
-              username: username,
-              hushes,
-              moment,
-              session: req.user,
-              buttonText: "Unfollow"
-            });
+            User.aggregate([{ $sample: { size: 3 } }]).exec(
+              (err, randomUsers) => {
+                res.render("hushes/index", {
+                  username: username,
+                  hushes,
+                  moment,
+                  session: req.user,
+                  buttonText: "Unfollow",
+                  randomUsers
+                });
+              }
+            );
           });
       }
     );
