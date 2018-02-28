@@ -6,6 +6,30 @@ const moment = require("moment");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 const back = require("express-back");
 
+router.get("/users", (req, res, next) => {
+  username = undefined;
+
+  User.find({}).exec((err, users) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (req.user) {
+      username = req.user.username;
+    }
+
+    User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+      res.render("profile/find", {
+        username: req.user.username,
+        users: users,
+        session: req.user,
+        buttonText: "Unfollow",
+        randomUsers
+      });
+    });
+  });
+});
+
 /* GET home page. */
 router.get("/", function(req, res, next) {
   if (req.user) {
@@ -42,6 +66,7 @@ router.get("/:username", (req, res, next) => {
       return next(err);
     }
 
+    var user_id = user._id;
     username = undefined;
 
     if (req.user) {
@@ -55,14 +80,17 @@ router.get("/:username", (req, res, next) => {
         if (err) {
           return next(err);
         }
-        console.log(username, req.user);
-        res.render("profile/show", {
-          profileName: user.username,
-          username: username,
-          hushes,
-          moment,
-          session: req.user,
-          buttonText: isFollowing ? "Unfollow" : "Follow"
+        User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+          res.render("profile/show", {
+            username: username,
+            user_id: user_id,
+            hushes,
+            moment,
+            session: req.user,
+            buttonText: "Unfollow",
+            randomUsers,
+            profileName: req.params.username
+          });
         });
       });
   });
@@ -110,26 +138,21 @@ router.post("/:postid/delete", (req, res, next) => {
   });
 });
 
-router.get("/users", (req, res, next) => {
-  username = undefined;
-
-  User.find({}).exec((err, users) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (req.user) {
-      username = req.user.username;
-    }
-
-    console.log(req.user);
-
-    res.render("profile/find", {
-      username: username,
-      users: users,
-      session: req.user
+router.get("/posts", ensureLoggedIn(), function(req, res, next) {
+  Hush.find({ user_id: req.user._id })
+    .sort({ created_at: -1 })
+    .exec((err, hushes) => {
+      User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+        res.render("hushes/index", {
+          username: req.user.username,
+          hushes,
+          moment,
+          session: req.user,
+          buttonText: "Unfollow",
+          randomUsers
+        });
+      });
     });
-  });
 });
 
 router.get("/following", (req, res, next) => {

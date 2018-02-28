@@ -34,6 +34,10 @@ html, body {
   padding-top: 27.5vh;
 }
 
+.width-100 {
+  width: 100vw;
+}
+
 .inner-feed {
   padding-top: 15vh;
   font-family: 'Raleway', sans-serif;
@@ -41,8 +45,14 @@ html, body {
 }
 
 .inner-search {
-  padding-top: 15vh;
+  padding-top: 5vh;
   font-family: 'Raleway', sans-serif;
+}
+
+.inner-profile {
+  padding-top: 10vh;
+  font-family: 'Raleway', sans-serif;
+  padding-bottom: 7vh;
 }
 
 #landing-section {
@@ -51,6 +61,13 @@ html, body {
   background-attachment: fixed;
   min-height: 100%;
   color: white;
+}
+
+.container-fluid {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto
 }
 
 .dark-overlay {
@@ -78,10 +95,6 @@ html, body {
 .sidebar {
   min-height: 100vh;
   background-color: #d34747
-}
-
-.icon-background {
-  background-color: gray;
 }
 
 .fa-user-circle {

@@ -18,26 +18,26 @@
             <% hushes.forEach(function(hush) { %>
             <li class="px-4 media individual-post">
               <i class="fas fa-fw fa-5x mr-4 mt-2"></i>
-                  <div class="media-body">
-                    <div class="row">
-                      <div class="col-3">
-                        <a class="hushlink-link d-block h5" href="/<%= hush.username %>">@<%= hush.username %></a>
-                        <form class="mt-4 d-none d-lg-block h5" action="/<%= hush.username %>/follow" method="POST">
-                          <% if (session !== undefined) { %>
-                            <button type="submit"  class="btn btn-hushlink"><%= buttonText %></button>
-                          <% } %>
-                        </form>
-                        <div class="d-lg-none">
-                          <a class="hushlink-link" href="<%= hush.hush %>"><span class="concat-link"><%= hush.hush %></span></a>
-                          <p class="mt-2 no-wordwrap"><%= moment(hush.created_at).fromNow() %> </p>
-                        </div>
-                        </div>
-                        <div class="col-9 d-none d-lg-block ml-auto">
-                          <a id="hush-link" class="hushlink-link" href="<%= hush.hush %>"><span class="concat-link"><%= hush.hush %></span></a>
-                          <p class="mt-4 pt-1"><%= moment(hush.created_at).fromNow() %> </p>
-                        </div>
-                      </div>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-3">
+                    <a class="hushlink-link d-block h5" href="/<%= hush.username %>">@<%= hush.username %></a>
+                    <form class="mt-4 d-none d-lg-block h5" action="/<%= hush.username %>/follow" method="POST">
+                      <% if (session !== undefined) { %>
+                        <button type="submit"  class="btn btn-hushlink"><%= buttonText %></button>
+                      <% } %>
+                    </form>
+                    <div class="d-lg-none">
+                      <a class="hushlink-link" href="<%= hush.hush %>"><span class="concat-link"><%= hush.hush %></span></a>
+                      <p class="mt-2 no-wordwrap"><%= moment(hush.created_at).fromNow() %> </p>
                     </div>
+                    </div>
+                    <div class="col-9 d-none d-lg-block ml-auto">
+                      <a id="hush-link" class="hushlink-link" href="<%= hush.hush %>"><span class="concat-link"><%= hush.hush %></span></a>
+                      <p class="mt-4 pt-1"><%= moment(hush.created_at).fromNow() %> </p>
+                    </div>
+                  </div>
+                </div>
             </li>
             <hr>
             <% }) %>
@@ -71,6 +71,9 @@
                             <% bool = false %>
                           </form>
                         <% }) %>
+                        <p><small>&copy;2018 Stephen Jackson</small></p>
+                        <span class="d-inline-block mb-2"><a href="https://github.com/stephjackson"><small>Github </small></a>
+                          <a href="https://www.linkedin.com/in/steph-jackson/"><small>LinkedIn</small></a></span>
                   </div>
                 </div>
           </div>
