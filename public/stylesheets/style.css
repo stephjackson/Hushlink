@@ -128,6 +128,10 @@ html, body {
   text-overflow: ellipsis;
 }
 
+.no-wordwrap {
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) { 
   #hush-link a {
     -webkit-box-sizing: content-box;

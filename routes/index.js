@@ -16,7 +16,7 @@ router.get("/", function(req, res, next) {
         Hush.find({ user_id: { $in: req.user.following } })
           .sort({ created_at: -1 })
           .exec((err, hushes) => {
-            User.aggregate([{ $sample: { size: 3 } }]).exec(
+            User.aggregate([{ $sample: { size: 2 } }]).exec(
               (err, randomUsers) => {
                 res.render("hushes/index", {
                   username: username,
@@ -145,10 +145,14 @@ router.get("/following", (req, res, next) => {
       return next(err);
     }
 
-    res.render("profile/find", {
-      username: username,
-      users: users,
-      session: req.user
+    User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+      res.render("profile/find", {
+        username: username,
+        users: users,
+        session: req.user,
+        buttonText: "Unfollow",
+        randomUsers
+      });
     });
   });
 });
@@ -166,10 +170,14 @@ router.get("/followers", (req, res, next) => {
       return next(err);
     }
 
-    res.render("profile/find", {
-      username: username,
-      users: users,
-      session: req.user
+    User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+      res.render("profile/find", {
+        username: username,
+        users: users,
+        session: req.user,
+        buttonText: "Unfollow",
+        randomUsers
+      });
     });
   });
 });

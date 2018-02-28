@@ -1,19 +1,22 @@
 <div class="row no-gutters">
       <div class="col-lg-2 sidebar d-none d-lg-block">
           <div class="inner-search">
-            <div class="row d-flex justify-content-center">
-              <div class="profile-card card col-8 pt-2">
-                <i class="card-image-top fas fa-fw fa-5x mr-4 mt-2 text-center"></i>
-                <p class="pt-2 card-title"><a href="/<%= username %>">Hello @<%= username %>!</a></p>
+           <div class="row d-flex justify-content-center">
+                <div class="profile-card card col-8 pt-2">
+                  <i class="card-image-top fas fa-fw fa-5x mr-4 mt-2 text-center"></i>
+                  <p class="pt-2 card-title"><a href="/<%= username %>">Hello @<%= username %>!</a></p>
+                  <a class="btn btn-outline-light mb-3" href="/posts">Your Posts</a>
+                  <a class="btn btn-outline-light mb-3" href="/followers">Followers</a>
+                  <a class="btn btn-outline-light mb-3" href="/following">Following</a>
+                </div>
               </div>
-            </div>
           </div>
         </div>
-      <div class="col-8 px-5">
+      <div class="col-8 px-2 px-lg-5">
         <div class="inner-search">
         <div class="row">
   <% users.forEach(function(user) { %>
-    <li class="p-4 media individual-post col-4">
+    <li class="p-4 media individual-post col-lg-4 col">
       <i class="fas fa-fw fa-5x mr-4 mt-2"></i>
       <div class="media-body">
         <div class="row">
@@ -45,9 +48,29 @@
           <div class="row d-flex justify-content-center">
               <div class="profile-card card col-8 pt-3">
                 <div class="form-row">
-                  <div class="col-12">
-                      <a class="btn btn-outline-light mb-3 ml-1" href="/users">Show All Users</a>
-              </div>
+                    <div class="col-12">
+                        <a class="btn btn-outline-light mb-3 ml-1" href="/users">Show All Users</a>
+                        <h6 class="mb-3">Suggested Users:</h6>
+                        <% bool = false %>
+                      <% randomUsers.forEach(function(user) { %>
+                        <i class="fas fa-fw fa-3x mb-2"></i>
+                        <a class="ml-1 h5 d-block" href="/<%= user.username %>"><%= user.username %></a>
+                        <% session.following.forEach(function(id) { %>
+                          <% if (id.toString() === user._id.toString()) { %>
+                          <% bool = true } %>
+                        <% }) %>
+                        <form class="" action="/<%= user.username %>/follow" method="POST">
+                          <button class="mb-3 btn btn-outline-light">
+                            <% if (bool) { %>
+                              Unfollow
+                            <% } else { %>
+                              Follow
+                            <% } %>
+                          </button>
+                          <% bool = false %>
+                        </form>
+                      <% }) %>
+                </div>
             </div>
       </div>
     </div>
