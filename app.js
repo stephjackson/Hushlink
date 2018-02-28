@@ -12,6 +12,7 @@ const MongoStore = require("connect-mongo")(session);
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
+const back = require("express-back");
 //CHANGE WHEN UPLOADING TO HEROKU
 mongoose.connect("mongodb://localhost/hushlink");
 
@@ -47,6 +48,7 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
+app.use(back());
 
 passport.serializeUser((user, cb) => {
   cb(null, user.id);

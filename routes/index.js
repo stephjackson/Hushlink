@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Hush = require("../models/hush");
 const moment = require("moment");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+const back = require("express-back");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -80,7 +81,7 @@ router.post("/:username/follow", (req, res) => {
 
       currentUser.save(err => {
         req.session.user = currentUser;
-        res.redirect("/" + req.params.username);
+        return res.back();
       });
     });
   });
@@ -100,6 +101,28 @@ router.post("/:postid/delete", (req, res, next) => {
         return next(err);
       }
       return res.redirect("/" + req.user.username);
+    });
+  });
+});
+
+router.get("/users", (req, res, next) => {
+  username = undefined;
+
+  User.find({}).exec((err, users) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (req.user) {
+      username = req.user.username;
+    }
+
+    console.log(req.user);
+
+    res.render("profile/find", {
+      username: username,
+      users: users,
+      session: req.user
     });
   });
 });
