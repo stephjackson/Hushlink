@@ -45,12 +45,12 @@ html, body {
 }
 
 .inner-search {
-  padding-top: 5vh;
+  padding-top: 15vh;
   font-family: 'Raleway', sans-serif;
 }
 
 .inner-profile {
-  padding-top: 10vh;
+  padding-top: 5vh;
   font-family: 'Raleway', sans-serif;
   padding-bottom: 7vh;
 }
