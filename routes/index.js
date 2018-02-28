@@ -127,4 +127,46 @@ router.get("/users", (req, res, next) => {
   });
 });
 
+router.get("/following", (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/login");
+  }
+
+  username = req.user.username;
+
+  User.find({ _id: { $in: req.user.following } }).exec((err, users) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+
+    res.render("profile/find", {
+      username: username,
+      users: users,
+      session: req.user
+    });
+  });
+});
+
+router.get("/followers", (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/login");
+  }
+
+  username = req.user.username;
+
+  User.find({ following: { $in: [req.user._id] } }).exec((err, users) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+
+    res.render("profile/find", {
+      username: username,
+      users: users,
+      session: req.user
+    });
+  });
+});
+
 module.exports = router;
