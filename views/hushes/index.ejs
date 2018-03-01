@@ -22,11 +22,22 @@
                 <div class="row">
                   <div class="col-3">
                     <a class="hushlink-link d-block h5" href="/<%= hush.username %>">@<%= hush.username %></a>
-                    <form class="mt-4 d-none d-lg-block h5" action="/<%= hush.username %>/follow" method="POST">
                       <% if (session !== undefined) { %>
-                        <button type="submit"  class="btn btn-hushlink"><%= buttonText %></button>
+                        <% bool = false %>
+                        <% session.following.forEach(function(id) { %>
+                          <% if (id.equals(hush._id)) { %>
+                          <% bool = true } %>
+                        <% }) %>
+                        <% if (hush.user_id.equals(session._id)) { %>
+                          <form class="mt-4 d-none d-lg-block h5" action="/<%= hush._id %>/delete" method="POST">
+                          <button type="submit" class="mb-3 btn btn-hushlink">Delete Post</button>
+                          </form>
+                        <% } else { %>
+                          <form class="mt-4 d-none d-lg-block h5" action="/<%= hush.username %>/follow" method="POST">
+                          <button type="submit" class="mb-3 btn btn-hushlink">Unfollow</button>
+                          </form>
+                        <% } %>
                       <% } %>
-                    </form>
                     <div class="d-lg-none">
                       <a class="hushlink-link" href="<%= hush.hush %>"><span class="concat-link"><%= hush.hush %></span></a>
                       <p class="mt-2 no-wordwrap"><%= moment(hush.created_at).fromNow() %> </p>
@@ -61,7 +72,7 @@
                             <% bool = true } %>
                           <% }) %>
                           <form class="" action="/<%= user.username %>/follow" method="POST">
-                            <button class="mb-3 btn btn-outline-light">
+                                <button class="mb-3 btn btn-outline-light">
                               <% if (bool) { %>
                                 Unfollow
                               <% } else { %>

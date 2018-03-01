@@ -31,7 +31,7 @@ router.get("/users", (req, res, next) => {
 });
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   if (req.user) {
     User.findOne({ username: req.user.username }, "_id username").exec(
       (err, user) => {
@@ -133,12 +133,12 @@ router.post("/:postid/delete", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.redirect("/" + req.user.username);
+      return res.back();
     });
   });
 });
 
-router.get("/posts", ensureLoggedIn(), function(req, res, next) {
+router.get("/posts", ensureLoggedIn(), function (req, res, next) {
   Hush.find({ user_id: req.user._id })
     .sort({ created_at: -1 })
     .exec((err, hushes) => {
