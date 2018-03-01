@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
@@ -13,8 +14,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const back = require("express-back");
-//CHANGE WHEN UPLOADING TO HEROKU
-mongoose.connect("mongodb://localhost/hushlink");
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 
@@ -141,14 +141,14 @@ const index = require("./routes/index");
 app.use("/", index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
