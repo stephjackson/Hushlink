@@ -41,6 +41,34 @@
               <li class="nav-item">
                 <a class="nav-link" href="/users">Users</a>
               </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Change Icon
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <form action="/<%= session._id %>/fa-chess/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Chess</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-king/icon" method="POST">
+                    <button class="dropdown-item" type="submit">King</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-queen/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Queen</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-knight/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Knight</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-rook/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Rook</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-bishop/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Bishop</button>
+                  </form>
+                  <form action="/<%= session._id %>/fa-chess-pawn/icon" method="POST">
+                    <button class="dropdown-item" type="submit">Pawn</button>
+                  </form>
+                </div>
+              </li>
               <form class="form-inline" action="/logout" method="POST">
                 <button class="nav-link link-unstyled" type="submit">Log Out</button>
               </form>
