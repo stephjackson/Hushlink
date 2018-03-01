@@ -3,11 +3,45 @@
           <div class="inner-feed">
            <div class="row d-flex justify-content-center">
                 <div class="profile-card card col-8 pt-2">
-                  <i class="card-image-top fas fa-fw fa-5x mr-4 mt-2 text-center"></i>
+                    <% if (session) { %>
+                  <i class="card-image-top fas fa-fw fa-5x mr-4 mt-2 text-center <%= session.icon %>"></i>
                   <p class="pt-2 card-title"><a href="/<%= username %>">Hello @<%= username %>!</a></p>
                   <a class="btn btn-outline-light mb-3" href="/posts">Your Posts</a>
                   <a class="btn btn-outline-light mb-3" href="/followers">Followers</a>
                   <a class="btn btn-outline-light mb-3" href="/following">Following</a>
+                  <div class="dropdown">
+                      <button class="btn btn-outline-light btn-block dropdown-toggle mb-3" type="button" id="iconDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Change Icon
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="iconDropdown">
+                          <form action="/<%= session._id %>/fa-chess/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Chess</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-king/icon" method="POST">
+                            <button class="dropdown-item" type="submit">King</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-queen/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Queen</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-knight/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Knight</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-rook/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Rook</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-bishop/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Bishop</button>
+                          </form>
+                          <form action="/<%= session._id %>/fa-chess-pawn/icon" method="POST">
+                            <button class="dropdown-item" type="submit">Pawn</button>
+                          </form>
+                        </div>
+                    </div>
+                    <% } else { %>
+                      <p class="pt-2 card-title"><a href="/<%= username %>">Hello new person! Would you like to join us?</a></p>
+                      <a class="btn btn-outline-light mb-3" href="/signup">Sign Up</a>
+                      <a class="btn btn-outline-light mb-3" href="/login">Login</a>
+                    <% } %>
                 </div>
               </div>
           </div>
@@ -17,15 +51,21 @@
         <div class="row">
   <% users.forEach(function(user) { %>
     <li class="p-4 media individual-post col-lg-4 col">
-      <i class="fas fa-fw fa-5x mr-4 mt-2"></i>
+        <% allUsers.forEach(function(thisUser) { %>
+          <% if (thisUser._id.equals(user._id)) { %>
+            <i class="fas fa-fw fa-5x mr-4 mt-2 <%= user.icon %>"></i>
+          <% } %>
+        <% }) %>
       <div class="media-body">
         <div class="row">
             <a class="hushlink-link d-block h5 pl-3" href="/<%= user.username %>">@<%= user.username %></a>
             <% bool = false %>
+            <% if (session) { %>
             <% session.following.forEach(function(id) { %>
               <% if (id.toString() === user._id.toString()) { %>
               <% bool = true } %>
             <% }) %>
+            <% } %>
           </div>
           <form class="h5" action="/<%= user.username %>/follow" method="POST">
             <button class="ml-0 btn btn-hushlink">
@@ -49,30 +89,38 @@
           <div class="row d-flex justify-content-center">
               <div class="profile-card card col-8 pt-3">
                 <div class="form-row">
-                    <div class="col-12">
-                        <a class="btn btn-outline-light mb-3 ml-1" href="/users">Show All Users</a>
+                    <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+                        <a class="btn btn-outline-light mb-3 center-text btn-block" href="/users">All Users</a>
                         <h6 class="mb-3">Random Users:</h6>
                         <% bool = false %>
                       <% randomUsers.forEach(function(user) { %>
-                        <i class="fas fa-fw fa-3x mb-2"></i>
+                        <% allUsers.forEach(function(aUser) { %>
+                          <% if (aUser._id.equals(user._id)) { %>
+                            <i class="fas fa-fw fa-3x mb-2 <%= aUser.icon %>"></i>
+                          <% } %>
+                        <% }) %>
                         <a class="ml-1 h5 d-block" href="/<%= user.username %>"><%= user.username %></a>
+                        <% if (session) { %>
                         <% session.following.forEach(function(id) { %>
                           <% if (id.toString() === user._id.toString()) { %>
                           <% bool = true } %>
                         <% }) %>
-                        <form class="" action="/<%= user.username %>/follow" method="POST">
-                          <button class="mb-3 btn btn-outline-light">
-                            <% if (bool) { %>
+                        <% } %>
+                        <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
+                              <button class="mb-3 btn btn-outline-light btn-block">
+                            <% if (bool && session) { %>
                               Unfollow
-                            <% } else { %>
+                            <% } else if (!bool && session) { %>
                               Follow
+                            <% } else { %>
+                              Profile
                             <% } %>
                           </button>
                           <% bool = false %>
                         </form>
                       <% }) %>
-                      <p><small class="d-inline-block mb-1">&copy;2018 Stephen Jackson</small></p>
-                      <span class="d-inline-block mb-2"><a href="https://github.com/stephjackson"><small>Github </small></a>
+                      <p class="align-self-start"><small>&copy;2018 Stephen Jackson</small></p>
+                      <span class="align-self-start d-inline-block mb-2"><a href="https://github.com/stephjackson"><small>Github </small></a>
                         <a href="https://www.linkedin.com/in/steph-jackson/"><small>LinkedIn</small></a></span>
 
                 </div>
@@ -82,18 +130,18 @@
 </div> 
 
 <script>
-    var fa = ['fa-chess', 'fa-chess-rook', 'fa-chess-queen', 'fa-chess-pawn', 'fa-chess-knight', 'fa-chess-king', 'fa-chess-bishop']
-    var bool;
-    function randomIcon() {
-      return fa[parseInt(Math.random() * fa.length)];
-    }
+    // var fa = ['fa-chess', 'fa-chess-rook', 'fa-chess-queen', 'fa-chess-pawn', 'fa-chess-knight', 'fa-chess-king', 'fa-chess-bishop']
+    // var bool;
+    // function randomIcon() {
+    //   return fa[parseInt(Math.random() * fa.length)];
+    // }
 
-    function changeIcon() {
-      let icons = document.querySelectorAll('.fas');
-      for (var i = 1; i < icons.length; i++) {
-        icons[i].classList.add(randomIcon());
-      }
-    }
+    // function changeIcon() {
+    //   let icons = document.querySelectorAll('.fas');
+    //   for (var i = 1; i < icons.length; i++) {
+    //     icons[i].classList.add(randomIcon());
+    //   }
+    // }
     
-    changeIcon();
+    // changeIcon();
   </script>

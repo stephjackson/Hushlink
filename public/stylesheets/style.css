@@ -145,6 +145,10 @@ html, body {
   white-space: nowrap;
 }
 
+.dropdown-menu {
+  color: #d34747
+}
+
 @media (max-width: 768px) { 
   #hush-link a {
     -webkit-box-sizing: content-box;
