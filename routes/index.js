@@ -180,6 +180,38 @@ router.get("/following", (req, res, next) => {
   });
 });
 
+router.get('/:username/following', (req, res, next) => {
+  username = undefined;
+
+  if (req.user) {
+    username = req.user.username;
+  }
+
+  User.findOne({ username: req.params.username }).exec((err, foundUser) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+
+    User.find({ _id: { $in: foundUser.following } }).exec((err, users) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+
+      User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+        res.render("profile/find", {
+          username: username,
+          users: users,
+          session: req.user,
+          buttonText: "Unfollow",
+          randomUsers
+        });
+      });
+    });
+  })
+})
+
 router.get("/followers", (req, res, next) => {
   if (!req.user) {
     res.redirect("/login");
@@ -204,5 +236,37 @@ router.get("/followers", (req, res, next) => {
     });
   });
 });
+
+router.get('/:username/followers', (req, res, next) => {
+  username = undefined;
+
+  if (req.user) {
+    username = req.user.username;
+  }
+
+  User.findOne({ username: req.params.username }).exec((err, foundUser) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+
+    User.find({ following: { $in: [foundUser._id] } }).exec((err, users) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+
+      User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
+        res.render("profile/find", {
+          username: username,
+          users: users,
+          session: req.user,
+          buttonText: "Unfollow",
+          randomUsers
+        });
+      });
+    });
+  })
+})
 
 module.exports = router;

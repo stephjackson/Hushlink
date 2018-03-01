@@ -14,6 +14,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const back = require("express-back");
+//CHANGE WHEN UPLOADING TO HEROKU
 mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
