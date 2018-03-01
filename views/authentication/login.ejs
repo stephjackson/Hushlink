@@ -16,6 +16,11 @@
         <button class="btn btn-hushlink btn-block mt-4" type="submit">Log In</button>
       </form>
       <p class="mt-2"><small>Not a member yet? <a class="hushlink-link" href="/signup">Sign up.</a></small></p>
+      <% if (typeof message != "undefined") { %>
+        <div class="error-message" role="alert">
+          <%= message %>
+        </div>
+      <% } %>
     </div>
   </div>
 </div>

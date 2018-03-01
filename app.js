@@ -14,6 +14,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const back = require("express-back");
+const flash = require("connect-flash");
 //CHANGE WHEN UPLOADING TO HEROKU
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -26,7 +27,7 @@ app.set("layout", "layouts/main-layout");
 app.use(expressLayouts);
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -64,6 +65,7 @@ passport.deserializeUser((id, cb) => {
   });
 });
 
+app.use(flash());
 // Signing Up
 passport.use(
   "local-signup",
@@ -112,7 +114,9 @@ passport.use(
 
 passport.use(
   "local-login",
-  new LocalStrategy((username, password, next) => {
+  new LocalStrategy({
+    passReqToCallback: true
+  }, (req, username, password, next) => {
     User.findOne({ username }, (err, user) => {
       if (err) {
         return next(err);
