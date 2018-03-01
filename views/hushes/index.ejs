@@ -96,7 +96,7 @@
 <nav class="footer fixed-bottom hush-footer p-3">
   <form class="form-row" action="/hushes" method="POST" id="new-hush">
         <div class="col-9">
-          <input class="form-control" type="url" name="hushUrl" placeholder="What should we see?" required pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$">
+          <input pattern=".{11,}" title="Please enter a valid URL (put http:// in the front)." class="form-control" type="url" name="hushUrl" value="http://" required>
         </div>
         <div class="col-3">
           <button class="btn btn-hushlink">Hush!</button>
