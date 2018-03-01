@@ -37,7 +37,8 @@ router.get("/", function (req, res, next) {
       (err, user) => {
         username = req.user.username;
 
-        Hush.find({ user_id: { $in: req.user.following } })
+        // Hush.find({ user_id: { $in: req.user.following } })
+        Hush.find({$or: [{user_id: { $in: req.user.following }}, {user_id: req.user._id}]})
           .sort({ created_at: -1 })
           .exec((err, hushes) => {
             User.aggregate([{ $sample: { size: 2 } }]).exec(
