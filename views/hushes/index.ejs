@@ -90,19 +90,19 @@
           </div>
         </div>
     </div>
+    </div>
+  </div>
     
-<footer class="fixed-bottom hush-footer p-3">
-  <form action="/hushes" method="POST" id="new-hush">
-      <div class="form-row">
-        <div class="col-lg col-9">
+<nav class="footer fixed-bottom hush-footer p-3">
+  <form class="form-row" action="/hushes" method="POST" id="new-hush">
+        <div class="col-9">
           <input class="form-control" type="url" name="hushUrl" placeholder="What should we see?">
         </div>
-        <div class="col">
+        <div class="col-3">
           <button class="btn btn-hushlink">Hush!</button>
         </div>
-      </div>
   </form>
-</footer>
+</nav>
   
     <% if (typeof(errorMessage) != "undefined") { %>
       <div>
