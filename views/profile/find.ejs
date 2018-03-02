@@ -67,16 +67,17 @@
             <% }) %>
             <% } %>
           </div>
-          <form class="h5" action="/<%= user.username %>/follow" method="POST">
-            <button class="ml-0 btn btn-hushlink">
-              <% if (bool) { %>
-                Unfollow
-              <% } else { %>
-                Follow
-              <% } %>
-            </button>
-            <% bool = false %>
-          </form>
+          <% if (session._id.equals(user._id)) { %>
+            <a class="my-2 btn btn-hushlink btn-block hushlink-hover" href="/<%= user.username %>">Profile</a>
+          <% } else if (bool) { %>
+            <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
+              <button class="my-2 btn btn-hushlink btn-block">Unfollow</button>
+            </form>
+          <% } else { %>
+            <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
+              <button class="my-2 btn btn-hushlink btn-block">Follow</button>
+            </form>
+          <% } %>
         </div>
       </li>
       <hr>
@@ -106,18 +107,17 @@
                           <% bool = true } %>
                         <% }) %>
                         <% } %>
-                        <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
-                              <button class="mb-3 btn btn-outline-light btn-block">
-                            <% if (bool && session) { %>
-                              Unfollow
-                            <% } else if (!bool && session) { %>
-                              Follow
-                            <% } else { %>
-                              Profile
-                            <% } %>
-                          </button>
-                          <% bool = false %>
-                        </form>
+                        <% if (session._id.equals(user._id)) { %>
+                          <button class="mb-3 btn btn-outline-light btn-block"><a href="/<%= user.username %>">Profile</a></button>
+                        <% } else if (bool) { %>
+                          <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
+                            <button class="mb-3 btn btn-outline-light btn-block">Unfollow</button>
+                          </form>
+                        <% } else { %>
+                          <form class="btn-block" action="/<%= user.username %>/follow" method="POST">
+                            <button class="mb-3 btn btn-outline-light btn-block">Follow</button>
+                          </form>
+                        <% } %>
                       <% }) %>
                       <p class="align-self-start"><small>&copy;2018 Stephen Jackson</small></p>
                       <span class="align-self-start d-inline-block mb-2"><a href="https://github.com/stephjackson"><small>Github </small></a>

@@ -107,6 +107,10 @@ html, body {
   border: solid 1px white;
 }
 
+.hushlink-hover:hover {
+  color: white;
+}
+
 .profile-card a {
   color: white;
 }
