@@ -1,3 +1,5 @@
+<!-- A view for showing every user. Functionally similar to the last two. -->
+
 <div class="row no-gutters">
       <div class="col-lg-2 sidebar d-none d-lg-block">
           <div class="inner-feed">
@@ -49,8 +51,10 @@
       <div class="col-8 px-2 px-lg-5">
         <div class="inner-feed">
         <div class="row">
+          <!-- Loops through each passed in user to display them. -->
   <% users.forEach(function(user) { %>
     <li class="p-4 media individual-post col-lg-4 col">
+      <!-- Icons. -->
         <% allUsers.forEach(function(thisUser) { %>
           <% if (thisUser._id.equals(user._id)) { %>
             <i class="fas fa-fw fa-5x mr-4 mt-2 <%= user.icon %>"></i>

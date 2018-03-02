@@ -3,6 +3,9 @@ const passport = require("passport");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 const router = express.Router();
 
+//Auth routes using passport live here. Middleware used to ensure proper state.
+
+//Login get and post.
 router.get("/login", ensureLoggedOut(), (req, res) => {
   res.render("authentication/login", {
     username: undefined,
@@ -21,6 +24,7 @@ router.post(
   })
 );
 
+//Signup get and post.
 router.get("/signup", ensureLoggedOut(), (req, res) => {
   res.render("authentication/signup", {
     username: undefined,
@@ -39,6 +43,7 @@ router.post(
   })
 );
 
+//Logout post.
 router.post("/logout", ensureLoggedIn("/login"), (req, res) => {
   req.logout();
   res.redirect("/");

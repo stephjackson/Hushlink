@@ -1,4 +1,6 @@
-   <div class="row no-gutters">
+  <!-- The first of the three main views for the website - this is the main feed for your posts -->
+  <div class="row no-gutters">
+    <!-- The first sidebar contains a card with your user info -->
       <div class="col-lg-2 sidebar d-none d-lg-block">
         <div class="inner-feed">
           <div class="row d-flex justify-content-center">
@@ -40,11 +42,14 @@
           </div>
         </div>
       </div>
+      <!-- The center feed for posts. -->
       <div class="col">
         <div class="inner-feed">
           <ul class="list-unstyled">
+            <!-- Iterate through each hush -->
             <% hushes.forEach(function(hush) { %>
             <li class="px-4 media individual-post">
+              <!-- This is in all three main views - iterates through each user to post the right icon. -->
               <% allUsers.forEach(function(user) { %>
                 <% if (user._id.equals(hush.user_id)) { %>
                   <i class="fas fa-fw fa-5x mr-4 mt-2 <%= user.icon %>"></i>
@@ -54,7 +59,10 @@
                 <div class="row">
                   <div class="col-3">
                     <a class="hushlink-link d-block h5 no-wordwrap" href="/<%= hush.username %>">@<%= hush.username %></a>
-                      <% if (session !== undefined) { %>
+                      <!--  This EJS and similar in the other routes are used to display the correct buttons.-->
+                      <!-- It's code like this that makes me wish I were using a framework, as components would make this much drier. -->
+                      <!-- There might also be a way to split this out into its own javascript file. -->
+                    <% if (session !== undefined) { %>
                         <% bool = false %>
                         <% session.following.forEach(function(id) { %>
                           <% if (id.equals(hush._id)) { %>
@@ -87,6 +95,7 @@
           </ul>
         </div>
       </div>
+      <!-- Right sidebar with other user information. -->
       <div class="col-lg-2 d-none d-lg-block sidebar">
           <div class="inner-feed">
               <div class="row d-flex justify-content-center">
@@ -96,6 +105,7 @@
                           <a class="btn btn-outline-light mb-3 center-text btn-block" href="/users">All Users</a>
                           <h6 class="mb-3">Random Users:</h6>
                           <% bool = false %>
+                          <!-- Icon generation. -->
                         <% randomUsers.forEach(function(user) { %>
                             <% allUsers.forEach(function(aUser) { %>
                               <% if (aUser._id.equals(user._id)) { %>
@@ -103,6 +113,7 @@
                               <% } %>
                             <% }) %>
                           <a class="ml-1 h5 d-block" href="/<%= user.username %>"><%= user.username %></a>
+                          <!-- Button generation. -->
                           <% session.following.forEach(function(id) { %>
                             <% if (id.toString() === user._id.toString()) { %>
                             <% bool = true } %>
@@ -130,7 +141,8 @@
     </div>
     </div>
   </div>
-    
+  
+  <!-- Footer for posting links. -->
 <nav class="footer fixed-bottom hush-footer p-3">
   <form class="form-row" action="/hushes" method="POST" id="new-hush">
         <div class="col-9">
@@ -148,6 +160,7 @@
       </div>
     <% } %>
 
+    <!-- An old script I used to randomly generate icons before the avatar system was implemented. -->
     <script>
       // var fa = ['fa-chess', 'fa-chess-rook', 'fa-chess-queen', 'fa-chess-pawn', 'fa-chess-knight', 'fa-chess-king', 'fa-chess-bishop']
       // function randomIcon() {
