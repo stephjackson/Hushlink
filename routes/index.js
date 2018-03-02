@@ -203,13 +203,15 @@ router.get("/following", (req, res, next) => {
     }
 
     User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
-      res.render("profile/find", {
-        username: username,
-        users: users,
-        session: req.user,
-        buttonText: "Unfollow",
-        randomUsers,
-        allUsers: users
+      User.find({}).exec((err, allUsers) => {
+        res.render("profile/find", {
+          username: username,
+          users: users,
+          session: req.user,
+          buttonText: "Unfollow",
+          randomUsers,
+          allUsers: allUsers
+        });
       });
     });
   });
@@ -236,13 +238,15 @@ router.get('/:username/following', (req, res, next) => {
       }
 
       User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
-        res.render("profile/find", {
-          username: username,
-          users: users,
-          session: req.user,
-          buttonText: "Unfollow",
-          randomUsers,
-          allUsers: users
+        User.find({}).exec((err, allUsers) => {
+          res.render("profile/find", {
+            username: username,
+            users: users,
+            session: req.user,
+            buttonText: "Unfollow",
+            randomUsers,
+            allUsers: allUsers
+          });
         });
       });
     });
@@ -264,13 +268,15 @@ router.get("/followers", (req, res, next) => {
     }
 
     User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
-      res.render("profile/find", {
-        username: username,
-        users: users,
-        session: req.user,
-        buttonText: "Unfollow",
-        randomUsers,
-        allUsers: users
+      User.find({}).exec((err, allUsers) => {
+        res.render("profile/find", {
+          username: username,
+          users: users,
+          session: req.user,
+          buttonText: "Unfollow",
+          randomUsers,
+          allUsers: allUsers
+        });
       });
     });
   });
@@ -297,13 +303,15 @@ router.get('/:username/followers', (req, res, next) => {
       }
 
       User.aggregate([{ $sample: { size: 2 } }]).exec((err, randomUsers) => {
-        res.render("profile/find", {
-          username: username,
-          users: users,
-          session: req.user,
-          buttonText: "Unfollow",
-          randomUsers,
-          allUsers: users
+        User.find({}).exec((err, allUsers) => {
+          res.render("profile/find", {
+            username: username,
+            users: users,
+            session: req.user,
+            buttonText: "Unfollow",
+            randomUsers,
+            allUsers: allUsers
+          });
         });
       });
     });
