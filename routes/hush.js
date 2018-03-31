@@ -3,6 +3,8 @@ const hushRoutes = express.Router();
 const moment = require("moment");
 const User = require("../models/user");
 const Hush = require("../models/hush");
+const dns = require('dns');
+const { URL } = require('url');
 
 //Middleware to check if a user exists.
 hushRoutes.use((req, res, next) => {
@@ -17,7 +19,8 @@ hushRoutes.use((req, res, next) => {
 //A bespoke solution would be to fire off your own HEAD or GET request but I ran out of time.
 hushRoutes.post("/", (req, res, next) => {
   const user = req.user;
-
+  const hushUrl = new URL(req.body.hushUrl);
+  console.log(hushUrl.hostname);
   //Searches for the current user.
   User.findOne({ username: user.username }).exec((err, user) => {
     if (err) {
