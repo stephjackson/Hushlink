@@ -20,13 +20,14 @@ hushRoutes.use((req, res, next) => {
 hushRoutes.post("/", (req, res, next) => {
   const user = req.user;
   const hushUrl = new URL(req.body.hushUrl);
-  console.log(hushUrl.hostname);
-  //Searches for the current user.
+  dns.resolve(hushUrl, (err, addresses) => {
+    console.log(`address: ${addresses}`)
+  })
+
   User.findOne({ username: user.username }).exec((err, user) => {
     if (err) {
       return;
     }
-
     //Creates a new hush object.
     const newHush = new Hush({
       user_id: user._id,
@@ -37,9 +38,11 @@ hushRoutes.post("/", (req, res, next) => {
     //Saves the hush in the database.
     newHush.save(err => {
       if (err) {
-        res.render("tweets/new", {
+        res.redirect("/", {
           username: user.username,
-          errorMessage: err.errors.hush.hushUrl
+          session: req.user,
+          user_id: req.user._id,
+          errorMessage: 'Threw an error'
         });
       } else {
         res.redirect("/");
